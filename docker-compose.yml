@@ -5,8 +5,8 @@ services:
   chromadb:
     image: chromadb/chroma:latest
     container_name: chromadb
-    ports:
-      - "8000:8000"
+    networks:
+      - traefik-net
     volumes:
       - chroma_data:/data
     environment:
@@ -16,10 +16,6 @@ services:
   rag-app:
     build: .
     container_name: rag-streamlit
-    ports:
-      - "8501:8501"
-    volumes:
-      - ./src:/app/src
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - CHROMA_HOST=${CHROMA_HOST}
@@ -34,9 +30,9 @@ services:
       - "traefik.http.routers.rag-app.rule=Host(`rag.joel-uzcategui.com`)"
       - "traefik.http.routers.rag-app.service=rag-app"
       - "traefik.http.routers.rag-app.tls=true"
-      - "traefik.http.routers.rag-app.tls.certresolver=letsEncrypt"
-      - "traefik.http.routers.rag-app.entrypoints=https"
-      - "traefik.http.services.rag-app.loadbalancer.server.port=80"
+      - "traefik.http.routers.rag-app.tls.certResolver=letsEncrypt"
+      - "traefik.http.routers.rag-app.entryPoints=https"
+      - "traefik.http.services.rag-app.loadbalancer.server.port=8501"
       - "traefik.docker.network=traefik-net"
     depends_on:
       - chromadb
