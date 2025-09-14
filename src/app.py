@@ -27,7 +27,8 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "200"))
 
 st.set_page_config(page_title="RAG Persistente", page_icon="📚", layout="wide")
 
-st.title("📚 RAG con Base de Datos Vectorial Persistente")
+st.title("📚 RAG with Persistent Vector Database | RAG con Base de Datos Vectorial Persistente")
+st.markdown("*RAG application with ChromaDB for persistent document storage*")
 st.markdown("*Aplicación RAG con ChromaDB para almacenamiento persistente de documentos*")
 
 # Initialize models and clients
@@ -115,7 +116,7 @@ def initialize_vector_store():
                 collection_name=COLLECTION_NAME,
                 embedding_function=embeddings
             )
-            st.success(f"✅ Conectado a la colección existente '{COLLECTION_NAME}' con {collection.count()} documentos")
+            st.success(f"✅ Connected to existing collection '{COLLECTION_NAME}' with {collection.count()} documents | Conectado a la colección existente '{COLLECTION_NAME}' con {collection.count()} documentos")
             return vectorstore, True
 
         except Exception:
