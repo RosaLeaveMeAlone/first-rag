@@ -25,7 +25,7 @@ docker-compose up -d
 
 3. **Access the application:**
 - Main interface: http://localhost:8501
-- ChromaDB admin: http://localhost:8000
+- ChromaDB health status: http://localhost:8000/api/v2/heartbeat
 
 ## 💡 Usage
 

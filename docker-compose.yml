@@ -22,8 +22,11 @@ services:
       - ./src:/app/src
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - CHROMA_HOST=chromadb
-      - CHROMA_PORT=8000
+      - CHROMA_HOST=${CHROMA_HOST}
+      - CHROMA_PORT=${CHROMA_PORT}
+      - COLLECTION_NAME=${COLLECTION_NAME}
+      - CHUNK_SIZE=${CHUNK_SIZE}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP}
     depends_on:
       - chromadb
     command: ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
